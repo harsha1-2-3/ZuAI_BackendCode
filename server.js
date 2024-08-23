@@ -22,6 +22,14 @@ initializeDatabase()
 
 // CRUD operations
 
+// Access
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); // Replace with your frontend's origin
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
+
 // Get all posts
 app.get("/posts", async (req, res) => {
   try {
