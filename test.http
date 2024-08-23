@@ -1,0 +1,111 @@
+### Get all posts
+GET http://localhost:3000/posts
+
+### Get a specific post
+GET http://localhost:3000/posts/1
+
+### Insert 20 Dummy Blog Posts
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+  "posts": [
+    {
+      "title": "Fourth Blog Post",
+      "content": "This is the content of the fourth blog post.",
+      "content_url": "https://via.placeholder.com/150/FFFF00/000000?text=Blog+Post+Image+4"
+    },
+    {
+      "title": "Fifth Blog Post",
+      "content": "This is the content of the fifth blog post.",
+      "content_url": "https://via.placeholder.com/150/00FFFF/000000?text=Blog+Post+Image+5"
+    },
+    {
+      "title": "Sixth Blog Post",
+      "content": "This is the content of the sixth blog post.",
+      "content_url": "https://via.placeholder.com/150/FF00FF/000000?text=Blog+Post+Image+6"
+    },
+    {
+      "title": "Seventh Blog Post",
+      "content": "This is the content of the seventh blog post.",
+      "content_url": "https://via.placeholder.com/150/000000/FFFFFF?text=Blog+Post+Image+7"
+    },
+    {
+      "title": "Eighth Blog Post",
+      "content": "This is the content of the eighth blog post.",
+      "content_url": "https://via.placeholder.com/150/808080/FFFFFF?text=Blog+Post+Image+8"
+    },
+    {
+      "title": "Ninth Blog Post",
+      "content": "This is the content of the ninth blog post.",
+      "content_url": "https://via.placeholder.com/150/FFFFFF/000000?text=Blog+Post+Image+9"
+    },
+    {
+      "title": "Tenth Blog Post",
+      "content": "This is the content of the tenth blog post.",
+      "content_url": "https://via.placeholder.com/150/FF5733/FFFFFF?text=Blog+Post+Image+10"
+    },
+    {
+      "title": "Eleventh Blog Post",
+      "content": "This is the content of the eleventh blog post.",
+      "content_url": "https://via.placeholder.com/150/4A235A/FFFFFF?text=Blog+Post+Image+11"
+    },
+    {
+      "title": "Twelfth Blog Post",
+      "content": "This is the content of the twelfth blog post.",
+      "content_url": "https://via.placeholder.com/150/1F618D/FFFFFF?text=Blog+Post+Image+12"
+    },
+    {
+      "title": "Thirteenth Blog Post",
+      "content": "This is the content of the thirteenth blog post.",
+      "content_url": "https://via.placeholder.com/150/229954/FFFFFF?text=Blog+Post+Image+13"
+    },
+    {
+      "title": "Fourteenth Blog Post",
+      "content": "This is the content of the fourteenth blog post.",
+      "content_url": "https://via.placeholder.com/150/F4D03F/000000?text=Blog+Post+Image+14"
+    },
+    {
+      "title": "Fifteenth Blog Post",
+      "content": "This is the content of the fifteenth blog post.",
+      "content_url": "https://via.placeholder.com/150/E67E22/FFFFFF?text=Blog+Post+Image+15"
+    },
+    {
+      "title": "Sixteenth Blog Post",
+      "content": "This is the content of the sixteenth blog post.",
+      "content_url": "https://via.placeholder.com/150/A93226/FFFFFF?text=Blog+Post+Image+16"
+    },
+    {
+      "title": "Seventeenth Blog Post",
+      "content": "This is the content of the seventeenth blog post.",
+      "content_url": "https://via.placeholder.com/150/2471A3/FFFFFF?text=Blog+Post+Image+17"
+    },
+    {
+      "title": "Eighteenth Blog Post",
+      "content": "This is the content of the eighteenth blog post.",
+      "content_url": "https://via.placeholder.com/150/138D75/FFFFFF?text=Blog+Post+Image+18"
+    },
+    {
+      "title": "Nineteenth Blog Post",
+      "content": "This is the content of the nineteenth blog post.",
+      "content_url": "https://via.placeholder.com/150/633974/FFFFFF?text=Blog+Post+Image+19"
+    },
+    {
+      "title": "Twentieth Blog Post",
+      "content": "This is the content of the twentieth blog post.",
+      "content_url": "https://via.placeholder.com/150/9C640C/FFFFFF?text=Blog+Post+Image+20"
+    }
+  ]
+}
+
+### Update a post
+PUT http://localhost:3000/posts/3
+Content-Type: application/json
+
+{
+  "title": "Third Blog Post",
+  "content": "This is the updated content of third blog post."
+}
+
+### Delete a post
+DELETE http://localhost:3000/posts/4
