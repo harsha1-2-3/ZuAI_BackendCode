@@ -34,11 +34,21 @@ initializeDatabase()
 // CRUD operations
 
 // Access
+
+const allowedOrigins = [
+  "http://localhost:3000", // for development
+  "https://your-site.netlify.app", // replace with your actual Netlify domain
+];
+
 app.use((req, res, next) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://zuaipostsproject.netlify.app"
-  );
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  } else {
+    console.log(`Origin ${origin} is not allowed by CORS policy`);
+  }
+
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   next();
