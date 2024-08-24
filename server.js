@@ -24,7 +24,7 @@ initializeDatabase()
 
 // Access
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000"); // Replace with your frontend's origin
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   next();
@@ -58,18 +58,16 @@ app.get("/posts/:id", async (req, res) => {
 
 // Create a new post
 app.post("/posts", async (req, res) => {
-  const posts = req.body.posts;
+  const { title, content, content_url } = req.body;
 
   try {
-    const insertPost = await db.prepare(`
+    const insertPost = await db.prepare(
+      `
         INSERT INTO posts (title, content, content_url)
-        VALUES (?, ?, ?);
-      `);
-
-    for (const post of posts) {
-      await insertPost.run(post.title, post.content, post.content_url);
-    }
-
+        VALUES (?, ?, ?)
+      `,
+      [title, content, content_url]
+    );
     await insertPost.finalize();
     res.status(200).send("Posts inserted successfully");
   } catch (error) {
