@@ -6,17 +6,28 @@ const cors = require("cors");
 const app = express();
 app.use(express.json());
 
+const allowedOrigins = [
+  "http://localhost:3000", // for development
+  "https://zuaipostsproject.netlify.app", // replace with your actual Netlify domain
+];
+
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "development"
-        ? process.env.FRONTEND_ORIGIN_DEVELOPMENT
-        : process.env.FRONTEND_ORIGIN_PRODUCTION,
+    origin: (origin, callback) => {
+      if (allowedOrigins.includes(origin) || !origin) {
+        // !origin allows requests like Postman or server-side calls without Origin header
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: "GET, POST, PUT, DELETE, OPTIONS",
+    allowedHeaders: "Content-Type, Authorization",
+    credentials: true,
   })
 );
-
 let db;
-
+console.log("Environment:", process.env.NODE_ENV);
 // Initialize the database and start the server
 initializeDatabase()
   .then((database) => {
@@ -35,25 +46,27 @@ initializeDatabase()
 
 // Access
 
-const allowedOrigins = [
-  "http://localhost:3000", // for development
-  "https://your-site.netlify.app", // replace with your actual Netlify domain
-];
-
 app.use((req, res, next) => {
   const origin = req.headers.origin;
 
   if (allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
-  } else {
-    console.log(`Origin ${origin} is not allowed by CORS policy`);
   }
 
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+
+  // Handle preflight requests
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+
   next();
 });
-
 // Get all posts
 app.get("/posts", async (req, res) => {
   try {
