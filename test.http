@@ -2,14 +2,14 @@
 GET http://localhost:3000/posts
 
 ### Get a specific post
-GET http://localhost:3000/posts/1
+GET http://localhost:3000/posts/2
 
 ### Insert Dummy Blog Post
 POST http://localhost:3000/posts
 Content-Type: application/json
 
 {
-  "title": "New Blog Post",
+  "title": "eight Blog Post",
   "content": "This is the content of the new blog post.",
   "content_url": "https://example.com/image.jpg"
 }

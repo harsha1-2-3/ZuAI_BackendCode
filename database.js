@@ -36,6 +36,7 @@ async function initializeDatabase() {
           "Third Post",
           "Fourth Post",
           "Fifth Post",
+          "Sixth Post",
         ];
         const dummyContent = [
           "This is the content of the first post.",
@@ -43,6 +44,7 @@ async function initializeDatabase() {
           "This is the content of the third post.",
           "This is the content of the fourth post.",
           "This is the content of the fifth post.",
+          "This is the content of the sixth post.",
         ];
         const dummyUrls = [
           "https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2021/09/how-to-write-a-blog-post.png",
@@ -50,6 +52,7 @@ async function initializeDatabase() {
           "https://www.hostinger.com/tutorials/wp-content/uploads/sites/2/2021/09/how-to-write-a-blog-post.png",
           "https://via.placeholder.com/150/FFFF00/000000?text=Blog+Post+Image+4",
           "https://via.placeholder.com/150/00FFFF/000000?text=Blog+Post+Image+5",
+          "https://via.placeholder.com/150/00FFBB/000000?text=Blog+Post+Image+6",
         ];
 
         for (let i = 0; i < dummyTitles.length; i++) {

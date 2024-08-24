@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const initializeDatabase = require("./database");
 const cors = require("cors");
@@ -7,7 +8,10 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://zuaipostsproject.netlify.app"],
+    origin:
+      process.env.NODE_ENV === "development"
+        ? process.env.FRONTEND_ORIGIN_DEVELOPMENT
+        : process.env.FRONTEND_ORIGIN_PRODUCTION,
   })
 );
 
@@ -17,7 +21,7 @@ let db;
 initializeDatabase()
   .then((database) => {
     db = database;
-    const port = 3000;
+    const port = process.env.PORT || 3000;
     app.listen(port, () => {
       console.log(`Server is running on http://localhost:${port}`);
     });
@@ -64,21 +68,31 @@ app.get("/posts/:id", async (req, res) => {
 });
 
 // Create a new post
+// Create a new post
 app.post("/posts", async (req, res) => {
   const { title, content, content_url } = req.body;
 
   try {
-    const insertPost = await db.prepare(
+    // Run the insertion directly
+    const result = await db.run(
       `
         INSERT INTO posts (title, content, content_url)
         VALUES (?, ?, ?)
       `,
       [title, content, content_url]
     );
-    await insertPost.finalize();
-    res.status(200).send("Posts inserted successfully");
+
+    // Check if the insertion was successful
+    if (result.changes > 0) {
+      res.status(201).json({
+        message: "Post inserted successfully",
+        postId: result.lastID,
+      });
+    } else {
+      res.status(400).send("Failed to insert post");
+    }
   } catch (error) {
-    res.status(500).send(`Error inserting posts: ${error.message}`);
+    res.status(500).send(`Error inserting post: ${error.message}`);
   }
 });
 
