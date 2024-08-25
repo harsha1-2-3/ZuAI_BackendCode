@@ -5,18 +5,15 @@ const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-app.use(cors());
-/*
-const allowedOrigins = [
-  "http://localhost:3000", // for development
-  "https://zuaipostsproject.netlify.app", // replace with actual domain
-];
+
+// CORS Configuration
+const allowedOrigins = ["https://zuaipostsproject.netlify.app"]; // Netlify domain
 
 app.use(
   cors({
     origin: (origin, callback) => {
+      // Allow requests from the allowed origin or no origin (for tools like Postman)
       if (allowedOrigins.includes(origin) || !origin) {
-        // !origin allows requests like Postman or server-side calls without Origin header
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
@@ -26,7 +23,8 @@ app.use(
     allowedHeaders: "Content-Type, Authorization",
     credentials: true,
   })
-);*/
+);
+
 let db;
 console.log("Environment:", process.env.NODE_ENV);
 
@@ -35,7 +33,7 @@ initializeDatabase()
     db = database;
     const port = process.env.PORT || 3000;
     app.listen(port, () => {
-      console.log(`Server is running on http://localhost:${port}`);
+      console.log(`Server is running on port ${port}`);
     });
   })
   .catch((error) => {
@@ -44,29 +42,7 @@ initializeDatabase()
   });
 
 // CRUD operations
-/*
-app.use((req, res, next) => {
-  // const origin = req.headers.origin;
 
-  res.setHeader(
-    "Access-Control-Allow-header",
-    "https://zuaipostsproject.netlify.app/"
-  );
-
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, OPTIONS"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-
-  // Handle preflight requests
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(204);
-  }
-
-  next();
-}); */
 // Get all posts
 app.get("/posts", async (req, res) => {
   try {
@@ -80,9 +56,7 @@ app.get("/posts", async (req, res) => {
 // Get a specific post
 app.get("/posts/:id", async (req, res) => {
   try {
-    const post = await db.get("SELECT * FROM posts WHERE id = ?", [
-      req.params.id,
-    ]);
+    const post = await db.get("SELECT * FROM posts WHERE id = ?", [req.params.id]);
     if (post) {
       res.json(post);
     } else {
@@ -98,7 +72,6 @@ app.post("/posts", async (req, res) => {
   const { title, content, content_url } = req.body;
 
   try {
-    // Run the insertion directly
     const result = await db.run(
       `
         INSERT INTO posts (title, content, content_url)
@@ -107,7 +80,6 @@ app.post("/posts", async (req, res) => {
       [title, content, content_url]
     );
 
-    // Check if the insertion was successful
     if (result.changes > 0) {
       res.status(201).json({
         message: "Post inserted successfully",
@@ -142,9 +114,7 @@ app.put("/posts/:id", async (req, res) => {
 // Delete a post
 app.delete("/posts/:id", async (req, res) => {
   try {
-    const result = await db.run("DELETE FROM posts WHERE id = ?", [
-      req.params.id,
-    ]);
+    const result = await db.run("DELETE FROM posts WHERE id = ?", [req.params.id]);
     if (result.changes > 0) {
       res.status(204).send("Post Deleted");
     } else {
