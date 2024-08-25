@@ -9,19 +9,20 @@ POST http://localhost:3000/posts
 Content-Type: application/json
 
 {
-  "title": "eight Blog Post",
+  "title": "6 Blog Post",
   "content": "This is the content of the new blog post.",
   "content_url": "https://example.com/image.jpg"
 }
 
 
 ### Update a post
-PUT http://localhost:3000/posts/1
+PUT http://localhost:3000/posts/5
 Content-Type: application/json
 
 {
-  "title": "Updated Third Blog Post",
-  "content": "This is the updated content for the third post."
+  "title": "Updated 5 Blog Post",
+  "content": "This is the updated content for the 5 AI post.",
+  "content_url":"https://assets.entrepreneur.com/content/3x2/2000/1693544379-Hithere.png"
 }
 
 ### Delete a post

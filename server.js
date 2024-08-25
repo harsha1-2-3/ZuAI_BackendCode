@@ -8,7 +8,7 @@ app.use(express.json());
 
 const allowedOrigins = [
   "http://localhost:3000", // for development
-  "https://zuaipostsproject.netlify.app", // replace with your actual Netlify domain
+  "https://zuaipostsproject.netlify.app", // replace with actual domain
 ];
 
 app.use(
@@ -28,7 +28,7 @@ app.use(
 );
 let db;
 console.log("Environment:", process.env.NODE_ENV);
-// Initialize the database and start the server
+
 initializeDatabase()
   .then((database) => {
     db = database;
@@ -43,8 +43,6 @@ initializeDatabase()
   });
 
 // CRUD operations
-
-// Access
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
@@ -93,7 +91,6 @@ app.get("/posts/:id", async (req, res) => {
   }
 });
 
-// Create a new post
 // Create a new post
 app.post("/posts", async (req, res) => {
   const { title, content, content_url } = req.body;
