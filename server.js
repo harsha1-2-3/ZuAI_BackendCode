@@ -1,10 +1,11 @@
 require("dotenv").config();
 const express = require("express");
 const initializeDatabase = require("./database");
-// const cors = require("cors");
+const cors = require("cors");
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 /*
 const allowedOrigins = [
   "http://localhost:3000", // for development
@@ -43,12 +44,12 @@ initializeDatabase()
   });
 
 // CRUD operations
-
+/*
 app.use((req, res, next) => {
   // const origin = req.headers.origin;
 
   res.setHeader(
-    "Access-Control-Allow-Origin",
+    "Access-Control-Allow-header",
     "https://zuaipostsproject.netlify.app/"
   );
 
@@ -65,7 +66,7 @@ app.use((req, res, next) => {
   }
 
   next();
-});
+}); */
 // Get all posts
 app.get("/posts", async (req, res) => {
   try {
