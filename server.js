@@ -1,11 +1,11 @@
 require("dotenv").config();
 const express = require("express");
 const initializeDatabase = require("./database");
-const cors = require("cors");
+// const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-
+/*
 const allowedOrigins = [
   "http://localhost:3000", // for development
   "https://zuaipostsproject.netlify.app", // replace with actual domain
@@ -25,7 +25,7 @@ app.use(
     allowedHeaders: "Content-Type, Authorization",
     credentials: true,
   })
-);
+);*/
 let db;
 console.log("Environment:", process.env.NODE_ENV);
 
@@ -45,11 +45,12 @@ initializeDatabase()
 // CRUD operations
 
 app.use((req, res, next) => {
-  const origin = req.headers.origin;
+  // const origin = req.headers.origin;
 
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://zuaipostsproject.netlify.app/"
+  );
 
   res.setHeader(
     "Access-Control-Allow-Methods",
